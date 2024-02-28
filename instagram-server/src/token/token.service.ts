@@ -34,7 +34,7 @@ export class TokenService {
 
   async verifyToken(token: string) {
     try {
-      return this.jwtService.verify(token, {
+      const checkAuth = this.jwtService.verify(token, {
         secret: this.configService.get('JWT_SECRET')
       });
     } catch (error) {

@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Follow } from 'src/follower/follow.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Post } from 'src/post/post.entity';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -20,9 +21,15 @@ export class User {
   @Column({ nullable: true })
   bio: string;
 
+  @Column({ default: 'https://instagram-store-image.s3.ap-southeast-2.amazonaws.com/default-avatar.png' })
+  avatar: string;
+
   @OneToMany(() => Follow, (follow) => follow.userTo, { onDelete: 'CASCADE' })
   followers: Follow[];
 
   @OneToMany(() => Follow, (follow) => follow.userFrom, { onDelete: 'CASCADE' })
   following: Follow[];
+
+  @OneToMany(() => Post, (post) => post.author, { onDelete: 'CASCADE' })
+  posts: Post[];
 }

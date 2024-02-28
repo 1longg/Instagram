@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Post, Request, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, HttpCode, Post, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 import { RegisterDto } from './register/dto/register.dto';
 import { AuthService } from './auth.service';
 import { TokenService } from 'src/token/token.service';
@@ -15,10 +15,12 @@ export class AuthController {
   }
 
   @UseGuards(LocalAuthGuard)
+  @HttpCode(200)
   @Post('login')
   async login(@Request() req) {
+    const user = req.user;
     const accessToken = await this.tokenService.generateAccessToken(req.user);
     const refreshToken = await this.tokenService.generateRefreshToken(req.user);
-    return { accessToken, refreshToken };
+    return { message: 'Login Successfully', data: { user, accessToken, refreshToken }};
   }
 }

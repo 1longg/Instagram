@@ -16,6 +16,6 @@ export class LoginService {
 
     const checkPassword = await bcrypt.compare(loginDto.password, user.password);
     if (!checkPassword) throw new UnauthorizedException('Invalid credentials');
-    return 'Login Successfully';
+    return user;
   }
 }

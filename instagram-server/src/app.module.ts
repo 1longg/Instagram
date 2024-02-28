@@ -6,6 +6,9 @@ import { DatabaseModule } from './common/database/database.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { FileModule } from './file/file.module';
+import { PostModule } from './post/post.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -23,7 +26,10 @@ import { JwtModule } from '@nestjs/jwt';
         global: true
       }),
       inject: [ConfigService]
-    })
+    }),
+    FileModule,
+    PostModule,
+    LikeModule
   ],
   controllers: [AppController],
   providers: [AppService]

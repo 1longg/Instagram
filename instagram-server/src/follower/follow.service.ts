@@ -48,4 +48,12 @@ export class FollowService {
       .createQueryBuilder('follow')
       .where('follow.userToId = :userToId AND follow.userFromId = :userFromId', { userToId, userFromId}).getOne()
   }
+
+  async getFollowersCount(userID: string): Promise<number> {
+    return this.followRepository.createQueryBuilder('follow').where('follow.userToId = :userID', { userID }).getCount();
+  }
+
+  async getFollowingsCount(userID: string): Promise<number> {
+    return this.followRepository.createQueryBuilder('follow').where('follow.userFromId = :userID', { userID }).getCount();
+  }
 }
