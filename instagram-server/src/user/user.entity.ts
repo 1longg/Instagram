@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { Follow } from 'src/follower/follow.entity';
+import { LikePost } from 'src/like-post/like-post.entity';
 import { Post } from 'src/post/post.entity';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -32,4 +33,7 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.author, { onDelete: 'CASCADE' })
   posts: Post[];
+
+  @OneToMany(() => LikePost, (likePost) => likePost.user, { onDelete: 'CASCADE' })
+  likePostOfUser: LikePost[];
 }

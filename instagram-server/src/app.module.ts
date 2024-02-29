@@ -8,7 +8,9 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { FileModule } from './file/file.module';
 import { PostModule } from './post/post.module';
-import { LikeModule } from './like/like.module';
+import { LikePostModule } from './like-post/like-post.module';
+import { LikeCommentController } from './like-comment/like-comment.controller';
+import { LikeCommentModule } from './like-comment/like-comment.module';
 
 @Module({
   imports: [
@@ -29,9 +31,10 @@ import { LikeModule } from './like/like.module';
     }),
     FileModule,
     PostModule,
-    LikeModule
+    LikePostModule,
+    LikeCommentModule
   ],
-  controllers: [AppController],
+  controllers: [AppController, LikeCommentController],
   providers: [AppService]
 })
 export class AppModule {}
