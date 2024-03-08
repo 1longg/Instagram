@@ -19,7 +19,7 @@ export class FileController {
   async uploadFile(
     @UploadedFile(
       new ParseFilePipe({
-        validators: [new FileTypeValidator({fileType: /\.(jpg|jpeg|png)$/})]
+        validators: [new FileTypeValidator({ fileType: /\.(jpg|jpeg|png)$/ })]
       })
     )
     file: Express.Multer.File
@@ -29,7 +29,14 @@ export class FileController {
 
   @Post('uploads')
   @UseInterceptors(AnyFilesInterceptor())
-  async uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
+  async uploadFiles(
+    @UploadedFiles(
+      new ParseFilePipe({
+        validators: [new FileTypeValidator({ fileType: /\.(jpg|jpeg|png)$/ })]
+      })
+    )
+    files: Array<Express.Multer.File>
+  ) {
     return await this.fileService.uploadMultipleFiles(files);
   }
 }

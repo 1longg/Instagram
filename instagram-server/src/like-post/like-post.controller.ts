@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { LikePostService } from './like-post.service';
 import { JwtAuthGuard } from 'src/guard/jwt-auth.guard';
 
@@ -19,7 +19,7 @@ export class LikePostController {
   }
 
   @Get('see-all-likes/:postId')
-  async seeAllLikesOfPost(@Param('postId') postId: string) {
-    return await this.likePostService.seeAllLikesOfPost(postId);
+  async seeAllLikesOfPost(@Param('postId') postId: string, @Body('page') body: {page: string}){
+    return await this.likePostService.seeAllLikesOfPost(postId, body.page);
   }
 }

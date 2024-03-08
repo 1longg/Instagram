@@ -11,6 +11,9 @@ import { PostModule } from './post/post.module';
 import { LikePostModule } from './like-post/like-post.module';
 import { LikeCommentController } from './like-comment/like-comment.controller';
 import { LikeCommentModule } from './like-comment/like-comment.module';
+import { CommentController } from './comment/comment.controller';
+import { CommentModule } from './comment/comment.module';
+import { FeedModule } from './feed/feed.module';
 
 @Module({
   imports: [
@@ -32,9 +35,11 @@ import { LikeCommentModule } from './like-comment/like-comment.module';
     FileModule,
     PostModule,
     LikePostModule,
-    LikeCommentModule
+    LikeCommentModule,
+    CommentModule,
+    FeedModule
   ],
-  controllers: [AppController, LikeCommentController],
+  controllers: [AppController],
   providers: [AppService]
 })
 export class AppModule {}

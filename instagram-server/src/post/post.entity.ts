@@ -1,6 +1,7 @@
+import { Comment } from 'src/comment/comment.entity';
 import { LikePost } from 'src/like-post/like-post.entity';
 import { User } from 'src/user/user.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Post {
@@ -18,4 +19,10 @@ export class Post {
 
   @OneToMany(() => LikePost, (likePost) => likePost.post, { onDelete: 'CASCADE' })
   likeOfPost: LikePost[];
+
+  @OneToMany(() => Comment, comment => comment.post, {onDelete: 'CASCADE'})
+  comment: Comment
+
+  @CreateDateColumn()
+  created_at: Date;
 }

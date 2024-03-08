@@ -1,8 +1,9 @@
 import { Exclude } from 'class-transformer';
+import { Comment } from 'src/comment/comment.entity';
 import { Follow } from 'src/follower/follow.entity';
 import { LikePost } from 'src/like-post/like-post.entity';
 import { Post } from 'src/post/post.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -25,10 +26,10 @@ export class User {
   @Column({ default: 'https://instagram-store-image.s3.ap-southeast-2.amazonaws.com/default-avatar.png' })
   avatar: string;
 
-  @OneToMany(() => Follow, (follow) => follow.userTo, { onDelete: 'CASCADE' })
+  @OneToMany(() => Follow, (follow) => follow.user, { onDelete: 'CASCADE' })
   followers: Follow[];
 
-  @OneToMany(() => Follow, (follow) => follow.userFrom, { onDelete: 'CASCADE' })
+  @OneToMany(() => Follow, (follow) => follow.follower, { onDelete: 'CASCADE' })
   following: Follow[];
 
   @OneToMany(() => Post, (post) => post.author, { onDelete: 'CASCADE' })
@@ -36,4 +37,7 @@ export class User {
 
   @OneToMany(() => LikePost, (likePost) => likePost.user, { onDelete: 'CASCADE' })
   likePostOfUser: LikePost[];
+
+  @OneToMany(() => Comment, (comment) => comment.user, { cascade: true })
+  comment: Comment;
 }

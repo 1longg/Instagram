@@ -1,22 +1,16 @@
 import { User } from 'src/user/user.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Follow {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  userToId: string;
-
-  @Column()
-  userFromId: string;
-
   @ManyToOne(() => User, (user) => user.followers, { onDelete: 'CASCADE' })
-  userTo: User[];
+  user: User;
 
   @ManyToOne(() => User, (user) => user.following, { onDelete: 'CASCADE' })
-  userFrom: User[];
+  follower: User;
 
   @CreateDateColumn()
   createdAt: Date;
