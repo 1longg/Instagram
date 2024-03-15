@@ -14,6 +14,7 @@ import { LikeCommentModule } from './like-comment/like-comment.module';
 import { CommentController } from './comment/comment.controller';
 import { CommentModule } from './comment/comment.module';
 import { FeedModule } from './feed/feed.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { FeedModule } from './feed/feed.module';
     LikePostModule,
     LikeCommentModule,
     CommentModule,
-    FeedModule
+    FeedModule,
+    EventsModule
   ],
   controllers: [AppController],
   providers: [AppService]

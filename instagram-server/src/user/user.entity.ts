@@ -1,5 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Comment } from 'src/comment/comment.entity';
+import { Message } from 'src/events/message/message.entity';
+import Room from 'src/events/room/room.entity';
 import { Follow } from 'src/follower/follow.entity';
 import { LikePost } from 'src/like-post/like-post.entity';
 import { Post } from 'src/post/post.entity';
@@ -40,4 +42,5 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.user, { cascade: true })
   comment: Comment;
+
 }

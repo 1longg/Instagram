@@ -7,11 +7,14 @@ import { User } from 'src/user/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { pick } from 'lodash';
+import { JwtService } from '@nestjs/jwt';
+import { GenerateTokenDto } from 'src/token/dto/generateToken.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private registerService: RegisterService,
+    private jwtService: JwtService,
     @InjectRepository(User) private userRepository: Repository<User>
   ) {}
   async register(@Body() registerDto: RegisterDto) {
@@ -27,5 +30,14 @@ export class AuthService {
     const checkPassword = await bcrypt.compare(loginDto.password, user.password);
     if (!checkPassword) throw new UnauthorizedException('Invalid credentials');
     return pick(user, ['user_id', 'username', 'email']);
+  }
+
+  async validateToken(token: string) {
+    try {
+      const user: GenerateTokenDto = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+      return user;
+    } catch (error) {
+      throw new UnauthorizedException('Invalid token');
+    }
   }
 }
