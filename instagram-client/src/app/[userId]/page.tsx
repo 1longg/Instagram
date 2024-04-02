@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ProfileNoPost from "@/components/ProfileNoPost";
 import SideBar from "@/components/SideBar";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   className?: string;
@@ -39,9 +40,9 @@ export default function Profile({ className, params }: Props) {
                   <div className="mr-5 flex">
                     <p className="font-semibold mr-2">1</p> Posts
                   </div>
-                  <div className="mr-5 flex">
+                  <Link href="/1longg/follow" className="mr-5 flex">
                     <p className="font-semibold mr-2">20</p> Followers
-                  </div>
+                  </Link>
                   <div className="flex">
                     <p className="font-semibold mr-2">10</p> Followings
                   </div>
@@ -53,7 +54,10 @@ export default function Profile({ className, params }: Props) {
             <div className="h-[1px] bg-slate-300 w-full mt-16 mb-4"></div>
 
             <div className="grid grid-cols-3 gap-1 mb-4">
-              <div className="col-span-1 cursor-pointer relative group">
+              <Link
+                href="/post/123"
+                className="col-span-1 cursor-pointer relative group"
+              >
                 <div className="group-hover:flex hidden w-full h-full absolute top-0 left-0 bg-black bg-opacity-50 justify-center items-center">
                   <div className="flex items-center mr-4">
                     <HeartIcon className="w-6 h-6 mr-1 text-white fill-white" />
@@ -72,7 +76,7 @@ export default function Profile({ className, params }: Props) {
                   height={300}
                   className="w-full h-full"
                 />
-              </div>
+              </Link>
             </div>
           </div>
         </div>

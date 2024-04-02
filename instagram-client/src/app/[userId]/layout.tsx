@@ -1,11 +1,16 @@
 type Props = {
   children: React.ReactNode;
-  post: React.ReactNode;
+  modalpost: React.ReactNode;
+  modalfollow: React.ReactNode;
 };
-export default function ProfileLayout({ children, post }: Props) {
+export default function ProfileLayout({
+  children,
+  modalfollow,
+}: Props) {
   return (
     <div className="relative">
       {children}
+      {modalfollow}
     </div>
   );
 }

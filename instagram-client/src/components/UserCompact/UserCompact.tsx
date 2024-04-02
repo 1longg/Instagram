@@ -7,7 +7,7 @@ type Props = {
 export default function UserCompact({ className }: Props) {
   return (
     <div className={className}>
-      <Link href="/" className="flex items-center">
+      <Link href="/long" className="flex items-center">
         <Image
           src="/login/ggplay.png"
           alt="avatar"

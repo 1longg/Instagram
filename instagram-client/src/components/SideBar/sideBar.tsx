@@ -19,7 +19,7 @@ type Props = {
 export default function SideBar({ className }: Props) {
   return (
     <div className={className}>
-      <div className="mb-4 flex justify-center relative">
+      <Link href='/' className="mb-4 flex justify-center relative">
         <Image
           src="/login/instagram-text.png"
           width={110}
@@ -27,7 +27,7 @@ export default function SideBar({ className }: Props) {
           alt="instagram-text-image"
           className=""
         />
-      </div>
+      </Link>
 
       <Link
         href="/"

@@ -1,7 +1,3 @@
-import CommentIcon from "@/Icon/commentIcon";
-import HeartIcon from "@/Icon/heartIcon";
-import MessageIcon from "@/Icon/messageIcon";
-import SaveIcon from "@/Icon/saveIcon";
 import SmileIcon from "@/Icon/smile";
 import ThreeDotIcon from "@/Icon/threeDotIcon";
 import convertLocateNumber from "@/util/convertLocateNumber";
@@ -41,24 +37,28 @@ export default function Post({ className }: Props) {
       <ReactInPost className="flex items-center justify-between mb-4" />
 
       <div className="mb-4 cursor-pointer">
-        <p className="text-sm font-semibold">
+        <Link href="/post/123" className="text-sm font-semibold">
           {convertLocateNumber(10000000)} likes
-        </p>
+        </Link>
       </div>
       <div className="mb-4 flex">
-        <Link href="/profile/1longg" className="text-sm mr-2 font-semibold">
+        <Link href="/1longg" className="text-sm mr-2 font-semibold">
           1longg
         </Link>
-        <p className="text-sm">123123123123123</p>
+        <Link href="/post/123" className="text-sm">
+          123123123123123
+        </Link>
       </div>
-      <div className="mb-4 text-slate-400 text-sm">View all 874 comments</div>
-      <div className="mb-4 flex">
+      <Link href="/post/123" className="mb-4 text-slate-400 text-sm">
+        View all 874 comments
+      </Link>
+      <Link href="/post/123" className="mb-4 flex">
         <input
           placeholder="Write your comment"
           className="outline-none w-full border-b border-slate-400 py-2 text-sm"
         />
         <SmileIcon className="w-6 h-6 cursor-pointer" />
-      </div>
+      </Link>
     </div>
   );
 }

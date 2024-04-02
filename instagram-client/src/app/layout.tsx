@@ -11,12 +11,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modalpost,
 }: Readonly<{
   children: React.ReactNode;
+  modalpost: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className="relative">
+        {children}
+        {modalpost}
+      </body>
     </html>
   );
 }
