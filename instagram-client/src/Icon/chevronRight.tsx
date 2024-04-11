@@ -3,7 +3,7 @@ type Props = {
   onClick?: () => void;
 };
 
-export default function CloseIcon({ className = "w-6 h-6", onClick }: Props) {
+export default function ChevronRight({ className = "w-6 h-6", onClick }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ export default function CloseIcon({ className = "w-6 h-6", onClick }: Props) {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M6 18 18 6M6 6l12 12"
+        d="m8.25 4.5 7.5 7.5-7.5 7.5"
       />
     </svg>
   );

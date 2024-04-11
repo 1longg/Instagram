@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import { LoginForm } from "@/components/Form";
-import ImageShowLogin from "@/components/ImageShowLogin";
 import Image from "next/image";
 import Link from "next/link";
 

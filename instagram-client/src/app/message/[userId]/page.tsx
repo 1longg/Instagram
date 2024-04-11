@@ -1,3 +1,4 @@
+"use client";
 import PhoneIcon from "@/Icon/phoneIcon";
 import SmileIcon from "@/Icon/smile";
 import ThreeDotIcon from "@/Icon/threeDotIcon";
@@ -6,11 +7,14 @@ import MessageSentFromFriend from "@/components/MessageSent/FromFriend/MessageSe
 import MessageSentFromMe from "@/components/MessageSent/FromMe/MesseageSentFormMe";
 import Image from "next/image";
 import Link from "next/link";
+import SerachForMessage from "@/components/SearchForMessage";
+import { useMessageContext } from "../context";
 
 export default function MessagePersonal() {
+  const { showPopoverSearchMessage, onClosePopover } = useMessageContext();
   return (
-    <div className="relative flex flex-col ml-auto w-3/4 bg-white overflow-hidden">
-      <div className="absolute sticky top-0 w-full p-4 flex items-center justify-between border-b boder-slate-300">
+    <div className="flex flex-col ml-auto w-3/4 bg-white overflow-hidden">
+      <div className=" sticky top-0 w-full p-4 flex items-center justify-between border-b boder-slate-300">
         <Link href="/1longg" className="flex items-center">
           <Image
             alt="avatar"
@@ -72,6 +76,10 @@ export default function MessagePersonal() {
           </button>
         </div>
       </div>
+
+      {showPopoverSearchMessage && (
+        <SerachForMessage onClosePopover={onClosePopover} />
+      )}
     </div>
   );
 }

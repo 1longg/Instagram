@@ -11,7 +11,7 @@ export function useMessageContext (){
     return useContext(MeesageContext);
 }
 
-export default function MessageProvider({
+export function MessageProvider({
   children,
 }: {
   children: React.ReactNode;

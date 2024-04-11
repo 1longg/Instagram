@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const plugin = require("tailwindcss/plugin");
 
 const config: Config = {
   content: [
@@ -18,8 +19,8 @@ const config: Config = {
         "primary-bg": "rgb(255, 255, 255)",
       },
       animation: {
-        "login-image": "transition-opacity duration-500 ease-in-out"
-      }
+        "login-image": "transition-opacity duration-500 ease-in-out",
+      },
     },
   },
   plugins: [],

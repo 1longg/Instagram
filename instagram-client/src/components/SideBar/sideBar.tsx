@@ -1,3 +1,4 @@
+'use client'
 import BarIcon from "@/Icon/barIcon";
 import ClickIcon from "@/Icon/clickIcon";
 import FilmIcon from "@/Icon/filmIcon";
@@ -11,12 +12,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Popover from "../Popover/popover";
 import PopoverMore from "./Popover/PopoverMore";
+import { useState } from "react";
+import SearchUser from "../SearchUser/SearchUser";
 
 type Props = {
   className?: string;
 };
 
 export default function SideBar({ className }: Props) {
+  const [showSearchUser, setShowSearchUser] = useState(false)
   return (
     <div className={className}>
       <Link href='/' className="mb-4 flex justify-center relative">
@@ -37,13 +41,13 @@ export default function SideBar({ className }: Props) {
         <p className="font-medium">Home</p>
       </Link>
 
-      <Link
-        href="/"
+      <div
         className="flex mb-5 w-full border-transparent p-2 hover:bg-slate-100 "
+        onClick={() => setShowSearchUser(!showSearchUser)}
       >
         <SearchIcon className="w-6 h-6 mr-2" />
         <p className="font-medium">Search</p>
-      </Link>
+      </div>
 
       <Link
         href="/"
@@ -99,6 +103,7 @@ export default function SideBar({ className }: Props) {
       >
         <PopoverMore className="absolute z-100 w-48 bg-white rounded-md mt-2 top-[calc(-300px_-_100%)] border rounded-lg p-2" />
       </Popover>
+      {showSearchUser && <SearchUser onClosePopover={() => setShowSearchUser(!showSearchUser)}/>}
     </div>
   );
 }

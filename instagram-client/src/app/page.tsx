@@ -4,6 +4,7 @@ import SideBar from "@/components/SideBar";
 import SuggestFollow from "@/components/SuggestFollow";
 
 export default function Home() {
+
   return (
     <div className="flex overflow-x-hidden h-screen">
       <SideBar className="h-screen fixed left-0 top-0 z-10 border-r-2 w-60 px-4 py-8 bg-white" />

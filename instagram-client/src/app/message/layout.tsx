@@ -1,5 +1,5 @@
 import SideBarMessage from "@/components/SideBarMessage";
-import MessageProvider from "./context";
+import { MessageProvider } from "./context";
 
 type Props = {
   children: React.ReactNode;
