@@ -1,6 +1,6 @@
 import SmileIcon from "@/Icon/smile";
 import ThreeDotIcon from "@/Icon/threeDotIcon";
-import convertLocateNumber from "@/util/convertLocateNumber";
+import convertLocateNumber from "@/util/function/convertLocateNumber";
 import Image from "next/image";
 import Link from "next/link";
 import ReactInPost from "../ReactInPost/ReactInPost";

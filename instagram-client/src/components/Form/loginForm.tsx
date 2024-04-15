@@ -1,14 +1,28 @@
 "use client";
 
 import FacebookIcon from "@/Icon";
+import { ILoginForm, loginFormSchema } from "@/app/_type/loginType";
+import { joiResolver } from "@hookform/resolvers/joi";
 import Image from "next/image";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 type LoginFormProps = {
   className: string;
 };
 
 export default function LoginForm({ className }: LoginFormProps) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<ILoginForm>({
+    resolver: joiResolver(loginFormSchema),
+  });
+  const onSubmit = (data: ILoginForm) => {
+    console.log(data);
+  };
   return (
     <div className={className}>
       <div className="flex justify-center py-4">
@@ -20,18 +34,32 @@ export default function LoginForm({ className }: LoginFormProps) {
           className="flex justify-center"
         />
       </div>
-      <form className="text-center mb-4">
-        <div className="text-center">
+      <form className="text-center mb-4" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col items-center">
           <input
-            className="p-2 border rounded bg-slate-50 mb-3 w-[280px] text-xs"
+            {...register("username")}
+            className="p-2 border rounded bg-slate-50 w-[280px] text-xs"
             placeholder="Username or email"
           />
+
+          <p className="text-xs text-start text-red-600 h-5 my-1 w-[280px]">
+            {errors.username && errors.username.message}
+          </p>
           <input
+            {...register("password")}
             className="p-2 border rounded bg-slate-50 w-[280px] text-xs"
             placeholder="Password"
+            type="password"
           />
+
+          <p className="text-xs text-start text-red-600 h-5 my-1 w-[280px]">
+            {errors.password && errors.password.message}
+          </p>
         </div>
-        <button className="mt-4 text-sm border rounded-lg bg-blue-500 font-bold w-[280px] text-white py-2 text-center hover:opacity-80">
+        <button
+          type="submit"
+          className=" text-sm border rounded-lg bg-blue-500 font-bold w-[280px] text-white py-2 text-center hover:opacity-80"
+        >
           Log in
         </button>
       </form>

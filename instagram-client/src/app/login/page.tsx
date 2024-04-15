@@ -11,8 +11,8 @@ export default function loginPage() {
           <Image
             src="/login/login1.png"
             alt="image-login"
-            className="object-cover absolute top-4 right-7"
-            width="200"
+            className="object-cover absolute top-5 right-0"
+            width="220"
             height="450"
           />
         </div>
