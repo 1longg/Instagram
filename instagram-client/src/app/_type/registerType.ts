@@ -8,7 +8,7 @@ export interface IRegisterForm {
 }
 
 export const registerFormSchema = Joi.object({
-  username: Joi.string().min(6).max(15).alphanum().required().messages({
+  username: Joi.string().min(5).max(15).alphanum().required().messages({
     'string.min': `Username should have a minimum length of {#limit}`,
     'string.max': `Username should have a maximum length of {#limit}`,
     'string.empty': `username cannot be an empty field`,

@@ -1,7 +1,14 @@
 "use client";
+import { AuthApi } from "@/app/_api/auth.api";
 import { IRegisterForm, registerFormSchema } from "@/app/_type/registerType";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useForm } from "react-hook-form";
+import _ from "lodash";
+import { toastify } from "../common/toastify/Toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import HttpStatusCode from "@/util/constant/HttpCode.enum";
+import { useMutation } from "@tanstack/react-query";
 
 type Props = {
   className?: string;
@@ -11,15 +18,28 @@ export default function RegisterForm({ className }: Props) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<IRegisterForm>({
     resolver: joiResolver(registerFormSchema),
   });
-  const onSubmit = (data: IRegisterForm) => {
-    console.log(data);
-  };
 
+  const registerMutation = useMutation({
+    mutationFn: async (data: Omit<IRegisterForm, "passwordConfirmation">) => await AuthApi.register(data),
+  })
+
+  const onSubmit = async (data: IRegisterForm) => {
+    registerMutation.mutate(data, {
+      onSuccess: (response) => {
+        if (response.statusCode === HttpStatusCode.Created)
+          toastify({
+            type: "success",
+            msg: `${response.message}, we will direct to login page after few seconds`,
+            onClose: () => (window.location.href = "/login"),
+          });
+      }
+    })
+  };
+  
   return (
     <div className={className}>
       <form className="text-center" onSubmit={handleSubmit(onSubmit)}>
@@ -61,6 +81,7 @@ export default function RegisterForm({ className }: Props) {
         </div>
         <button
           type="submit"
+          disabled={registerMutation.isPending}
           className="my-4 text-sm border rounded-lg bg-blue-500 font-bold w-[280px] text-white py-2 text-center hover:opacity-80"
         >
           Sign up

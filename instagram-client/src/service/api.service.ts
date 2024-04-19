@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getToken, removeAllStorage, setToken } from "./storage.service";
 import {
   ERROR_MESSAGE,
@@ -10,7 +10,7 @@ import _ from "lodash";
 import { toastify } from "@/components/common/toastify/Toastify";
 
 const axiosApiInstance = axios.create({
-  baseURL: process.env.URL,
+  baseURL: "http://localhost:4000/",
   withCredentials: true,
   headers: {
     Accept: "application/json",
@@ -23,8 +23,8 @@ class ApiService {
   isFetchingAccessToken = false;
   constructor() {
     axiosApiInstance.interceptors.request.use(
-      (config) => {
-        const token = localStorage.getItem("token");
+      async (config) => {
+        const token = getToken();
         config.headers.Authorization = token ? `Bearer ${token}` : "";
         return config;
       },
@@ -34,7 +34,9 @@ class ApiService {
     );
 
     axiosApiInstance.interceptors.response.use(
-      (response) => response,
+      (response) => {
+        return response;
+      },
       (error) => {
         const originalRequest = error.config;
         const accessToken = getToken();
@@ -70,7 +72,7 @@ class ApiService {
     );
     axiosApiInstance.interceptors.response.use(
       (response) => {
-        return response;
+        return response as AxiosResponse;
       },
       (error) => {
         const originalRequest = error.config;
@@ -128,6 +130,7 @@ class ApiService {
           resolve(res);
         })
         .catch((error) => {
+          console.log(error);
           reject(this.handleError(error));
         });
     });
@@ -192,6 +195,11 @@ class ApiService {
       toastify({
         type: "error",
         msg: error?.response?.data.error || ERROR_MESSAGE.VALIDATION_ERROR,
+      });
+    } else if (error.response?.data?.statusCode === 409) {
+      toastify({
+        type: "error",
+        msg: error?.response?.data.message || ERROR_MESSAGE.VALIDATION_ERROR,
       });
     } else if (error?.response) {
       let errMsg = _.get(ERROR_MESSAGE, error.response.data.message);

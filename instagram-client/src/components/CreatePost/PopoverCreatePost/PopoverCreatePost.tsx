@@ -31,7 +31,6 @@ export default function PopoverCreatePost({ onClosePopover }: Props) {
       return;
     }
     const filesArray = Array.from(e.target.files);
-    console.log(filesArray);
     setSelectedFile(filesArray);
   };
 

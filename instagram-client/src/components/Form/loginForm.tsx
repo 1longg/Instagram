@@ -1,10 +1,15 @@
 "use client";
 
 import FacebookIcon from "@/Icon";
+import { AuthApi } from "@/app/_api/auth.api";
 import { ILoginForm, loginFormSchema } from "@/app/_type/loginType";
+import { setRefreshToken, setToken, setUser } from "@/service/storage.service";
+import HttpStatusCode from "@/util/constant/HttpCode.enum";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type LoginFormProps = {
@@ -20,8 +25,27 @@ export default function LoginForm({ className }: LoginFormProps) {
   } = useForm<ILoginForm>({
     resolver: joiResolver(loginFormSchema),
   });
+
+  const loginMutation = useMutation({
+    mutationFn: async (data: ILoginForm) => {
+      return await AuthApi.login(data);
+    },
+  });
+
   const onSubmit = (data: ILoginForm) => {
-    console.log(data);
+    loginMutation.mutate(data, {
+      onSuccess: (response) => {
+        if (response.statusCode === HttpStatusCode.Ok) {
+          setUser(response.data.user);
+          setRefreshToken(response.data.refreshToken);
+          setToken(response.data.accessToken);
+          window.location.href = "/";
+        }
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   };
   return (
     <div className={className}>
@@ -37,13 +61,13 @@ export default function LoginForm({ className }: LoginFormProps) {
       <form className="text-center mb-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col items-center">
           <input
-            {...register("username")}
+            {...register("email")}
             className="p-2 border rounded bg-slate-50 w-[280px] text-xs"
             placeholder="Username or email"
           />
 
           <p className="text-xs text-start text-red-600 h-5 my-1 w-[280px]">
-            {errors.username && errors.username.message}
+            {errors.email && errors.email.message}
           </p>
           <input
             {...register("password")}

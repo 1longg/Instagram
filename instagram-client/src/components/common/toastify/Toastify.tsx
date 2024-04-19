@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import style from "./Toastify.module.scss";
+import style from "./toastify.module.scss";
 import SystemInfo from "@/Icon/systemInfo";
 import SystemCheckmark from "@/Icon/systemCheckMark";
 import SystemCloseCircle from "@/Icon/systemCloseCircle";

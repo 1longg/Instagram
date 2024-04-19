@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import BarIcon from "@/Icon/barIcon";
 import ClickIcon from "@/Icon/clickIcon";
 import FilmIcon from "@/Icon/filmIcon";
@@ -14,16 +14,17 @@ import Popover from "../Popover/popover";
 import PopoverMore from "./Popover/PopoverMore";
 import { useState } from "react";
 import SearchUser from "../SearchUser/SearchUser";
+import { getUser } from "@/service/storage.service";
 
 type Props = {
   className?: string;
 };
 
 export default function SideBar({ className }: Props) {
-  const [showSearchUser, setShowSearchUser] = useState(false)
+  const [showSearchUser, setShowSearchUser] = useState(false);
   return (
     <div className={className}>
-      <Link href='/' className="mb-4 flex justify-center relative">
+      <Link href="/" className="mb-4 flex justify-center relative">
         <Image
           src="/login/instagram-text.png"
           width={110}
@@ -80,11 +81,11 @@ export default function SideBar({ className }: Props) {
       </Link>
 
       <Link
-        href="/"
+        href="/long"
         className="flex mb-24 w-full border-transparent p-2 hover:bg-slate-100 "
       >
         <Image
-          src="/login/ggplay.png"
+          src={`/logo.jpg`}
           alt="avatar"
           className="mr-2 rounded-full object-contain"
           width={24}
@@ -103,7 +104,9 @@ export default function SideBar({ className }: Props) {
       >
         <PopoverMore className="absolute z-100 w-48 bg-white rounded-md mt-2 top-[calc(-300px_-_100%)] border rounded-lg p-2" />
       </Popover>
-      {showSearchUser && <SearchUser onClosePopover={() => setShowSearchUser(!showSearchUser)}/>}
+      {showSearchUser && (
+        <SearchUser onClosePopover={() => setShowSearchUser(!showSearchUser)} />
+      )}
     </div>
   );
 }

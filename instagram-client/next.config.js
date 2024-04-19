@@ -9,6 +9,15 @@ const nextConfig = {
       aggregateTimeout: 300
     }
     return config
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'instagram-store-image.s3.ap-southeast-2.amazonaws.com',
+        pathname: '/**'
+      }
+    ]
   }
 }
 

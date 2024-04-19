@@ -1,5 +1,6 @@
 const TOKEN = "TOKEN";
 const REFRESH_TOKEN = "REFRESH_TOKEN";
+const USER = "USER";
 
 export function setToken(value: string) {
   if (typeof window === "undefined") return "";
@@ -38,4 +39,26 @@ export function removeRefreshToken() {
 export function removeAllStorage() {
   if (typeof window === "undefined") return;
   localStorage.clear();
+}
+
+export function setUser(value: {
+  user_id: string;
+  username: string;
+  email: string;
+  avatar: string;
+}) {
+  if (typeof window === "undefined") return "";
+  localStorage.setItem(USER, JSON.stringify(value));
+}
+
+export function getUser() {
+  if (typeof window === "undefined") return "";
+  const token = localStorage.getItem(USER) || "";
+  if (!token || token === "undefined") return "";
+  return JSON.parse(token);
+}
+
+export function removeUser() {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(USER);
 }
