@@ -17,7 +17,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           database: configService.get('POSTGRES_DATABASE'),
           synchronize: true,
           autoLoadEntities: true,
-          logging: true
         };
       }
     })

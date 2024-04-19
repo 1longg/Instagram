@@ -19,7 +19,7 @@ export class RegisterService {
       const passwordHash = await bcrypt.hash(registerDto.password, salt);
       const user = this.userRepository.create({ ...registerDto, password: passwordHash });
       await this.userRepository.save(user);
-      return user;
+      return {user, message: 'User registered successfully'};
     } catch (error) {
       throw new Error(error);
     }

@@ -93,7 +93,7 @@ export class FollowService {
       .getOne();
   }
 
-  async getFollowersCount(user_id: string): Promise<number> {
+  async getNumberOfFollowers(user_id: string): Promise<number> {
     return this.followRepository
       .createQueryBuilder('follow')
       .leftJoinAndSelect('follow.follower', 'user')
@@ -101,7 +101,7 @@ export class FollowService {
       .getCount();
   }
 
-  async getFollowingsCount(user_id: string): Promise<number> {
+  async getNumberOfFollowings(user_id: string): Promise<number> {
     return this.followRepository
       .createQueryBuilder('follow')
       .leftJoinAndSelect('follow.user', 'user')

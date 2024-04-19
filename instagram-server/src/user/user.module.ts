@@ -12,14 +12,22 @@ import { LikePost } from 'src/like-post/like-post.entity';
 import { Comment } from 'src/comment/comment.entity';
 import { Message } from 'src/events/message/message.entity';
 import Room from 'src/events/room/room.entity';
+import { PostModule } from 'src/post/post.module';
+import { PostService } from 'src/post/post.service';
+import { FollowService } from 'src/follower/follow.service';
+import { LikePostModule } from 'src/like-post/like-post.module';
+import { LikePostService } from 'src/like-post/like-post.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Follow, Post, LikePost, Comment, Message, Room]),
     PassportModule,
-    forwardRef(() => FollowModule)
+    forwardRef(() => FollowModule),
+    forwardRef(() => LikePostModule),
+    forwardRef(() => PostModule),
+    
   ],
-  providers: [UserService, JwtStrategy],
+  providers: [UserService, PostService, JwtStrategy, FollowService, LikePostService],
   exports: [UserService],
   controllers: [UserController]
 })

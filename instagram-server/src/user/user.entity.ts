@@ -10,6 +10,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGene
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
+  @Exclude()
   user_id: string;
 
   @Column({ unique: true })

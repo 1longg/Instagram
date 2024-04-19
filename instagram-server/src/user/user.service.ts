@@ -20,7 +20,7 @@ export class UserService {
   }
 
   async getProfile(id: string): Promise<User> {
-    return await this.userRepository.createQueryBuilder('user').where('user.id = :id', { id }).getOne();
+    return await this.userRepository.createQueryBuilder('user').where('user.user_id = :id', { id }).getOne();
   }
 
   async updateBio(id: string, data: string) {

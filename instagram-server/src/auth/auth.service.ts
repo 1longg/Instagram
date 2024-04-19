@@ -1,4 +1,4 @@
-import { Body, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Body, Injectable, Res, UnauthorizedException } from '@nestjs/common';
 import { RegisterService } from './register/register.service';
 import { RegisterDto } from './register/dto/register.dto';
 import { LoginDto } from './logIn/dto/login.dto';
@@ -29,7 +29,7 @@ export class AuthService {
 
     const checkPassword = await bcrypt.compare(loginDto.password, user.password);
     if (!checkPassword) throw new UnauthorizedException('Invalid credentials');
-    return pick(user, ['user_id', 'username', 'email']);
+    return pick(user, ['user_id', 'username', 'email', 'avatar']);
   }
 
   async validateToken(token: string) {

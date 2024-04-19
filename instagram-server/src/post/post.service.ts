@@ -17,11 +17,31 @@ export class PostService {
     return await this.postRepository.save(post);
   }
 
-  async getPostByUserId(user_id: string) {
-    return await this.postRepository.createQueryBuilder('post').leftJoinAndSelect('post.author', 'author').where('author.user_id = :user_id', { user_id }).getMany();
+  async getAllPostOfUser(user_id: string, page: string) {
+    return await this.postRepository
+      .createQueryBuilder('post')
+      .leftJoin('post.author', 'author')
+      .leftJoin('post.likeOfPost', 'likes')
+      .leftJoin('post.comment', 'comments')
+      .where('author.user_id = :user_id', { user_id })
+      .select(['post.post_id', 'post.photo'])
+      .addSelect('COUNT(DISTINCT(likes.like_post_id)) as number_of_likes')
+      .addSelect('COUNT(DISTINCT(comments.comment_id)) as number_of_comments')
+      .groupBy('post.post_id')
+      .offset(Number(page) * 6)
+      .limit(6)
+      .getRawMany();
   }
 
   async getPostByPostId(post_id: string) {
-    return await this.postRepository.createQueryBuilder('post').where('post.post_id = :post_id', { post_id }).getOne()
+    return await this.postRepository.createQueryBuilder('post').where('post.post_id = :post_id', { post_id }).getOne();
+  }
+
+  async getNumberOfPost(user_id: string) {
+    return await this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.author', 'author')
+      .where('author.user_id = :user_id', { user_id })
+      .getCount();
   }
 }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -15,6 +15,7 @@ import { CommentController } from './comment/comment.controller';
 import { CommentModule } from './comment/comment.module';
 import { FeedModule } from './feed/feed.module';
 import { EventsModule } from './events/events.module';
+import LogsMiddleware from './middleware/logger.middleware';
 
 @Module({
   imports: [
@@ -44,4 +45,10 @@ import { EventsModule } from './events/events.module';
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+export class AppModule {
+    configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LogsMiddleware)
+      .forRoutes('*');
+  }
+}

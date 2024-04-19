@@ -14,7 +14,6 @@ export class CommentService {
   ) {}
 
   async createComment(content: string, postId: string, userId: string) {
-    console.log(userId);
     const post = await this.postRepository
       .createQueryBuilder('post')
       .where('post.post_id = :postId', { postId })
